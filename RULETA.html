@@ -194,28 +194,17 @@ function girar(){
     let duracion = 5000;
     let inicioTiempo = null;
 
-    function animacion(t){
+   function mostrarGanador() {
 
-        if(!inicioTiempo) inicioTiempo = t;
+    const angulo = (2 * Math.PI) / participantes.length;
 
-        let progreso = (t - inicioTiempo) / duracion;
-        if(progreso > 1) progreso = 1;
+    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI))) % (2 * Math.PI);
 
-        let ease = 1 - Math.pow(1 - progreso, 3);
+    let indice = Math.floor(posicion / angulo);
 
-        rotacion = inicio + (destino - inicio) * ease;
-
-        dibujar();
-
-        if(progreso < 1){
-            requestAnimationFrame(animacion);
-        }else{
-            girando = false;
-
-            document.getElementById("ganador").innerHTML =
-                "🏆 Ganador:<br>" + participantes[ganadorIndex];
-        }
-
+    document.getElementById("ganador").innerHTML =
+        "🏆 Ganador:<br>" + participantes[indice];
+}
     }
 
     requestAnimationFrame(animacion);
