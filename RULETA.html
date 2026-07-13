@@ -194,6 +194,33 @@ function girar(){
     let duracion = 5000;
     let inicioTiempo = null;
 
+    
+function animacion(t){
+
+if(!inicioTiempo) inicioTiempo=t;
+
+let progreso=(t-inicioTiempo)/duracion;
+
+if(progreso>1) progreso=1;
+
+let ease=1-Math.pow(1-progreso,3);
+
+rotacion=inicio+(destino-inicio)*ease;
+
+dibujar();
+
+if(progreso<1){
+
+requestAnimationFrame(animacion);
+
+}else{
+
+girando=false;
+
+mostrarGanador();
+
+}
+
    function mostrarGanador() {
 
     const angulo = (2 * Math.PI) / participantes.length;
