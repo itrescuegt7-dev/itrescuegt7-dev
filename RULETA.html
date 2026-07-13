@@ -100,6 +100,7 @@ const radio=250;
 
 let rotacion=0;
 let girando=false;
+let ganadorIndex = 0;
 
 function dibujar(){
 
@@ -169,64 +170,56 @@ document.getElementById("btnGirar").onclick=girar;
 
 function girar(){
 
-if(girando) return;
+    if(girando) return;
 
-girando=true;
+    girando = true;
 
-document.getElementById("ganador").innerHTML="";
-
-let vueltas=6+Math.random()*5;
-
-let destino=rotacion+vueltas*2*Math.PI;
-
-let inicio=rotacion;
-
-let duracion=5000;
-
-let inicioTiempo=null;
-
-function animacion(t){
-
-if(!inicioTiempo) inicioTiempo=t;
-
-let progreso=(t-inicioTiempo)/duracion;
-
-if(progreso>1) progreso=1;
-
-let ease=1-Math.pow(1-progreso,3);
-
-rotacion=inicio+(destino-inicio)*ease;
-
-dibujar();
-
-if(progreso<1){
-
-requestAnimationFrame(animacion);
-
-}else{
-
-girando=false;
-
-mostrarGanador();
-
-}
-
-}
-
-requestAnimationFrame(animacion);
-
-}
-
-function mostrarGanador() {
+    document.getElementById("ganador").innerHTML = "";
 
     const angulo = (2 * Math.PI) / participantes.length;
 
-    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2 - angulo / 2) % (2 * Math.PI);
+    // Elegir ganador al azar
+    ganadorIndex = Math.floor(Math.random() * participantes.length);
 
-    let indice = Math.floor(posicion / angulo);
+    // Centro del sector ganador
+    let anguloGanador = ganadorIndex * angulo + angulo / 2;
 
-    document.getElementById("ganador").innerHTML =
-        "🏆 Ganador:<br>" + participantes[indice];
+    // La flecha está en las 12 (90°)
+    let destino =
+        rotacion +
+        8 * 2 * Math.PI +                // 8 vueltas completas
+        (3 * Math.PI / 2 - anguloGanador);
+
+    let inicio = rotacion;
+    let duracion = 5000;
+    let inicioTiempo = null;
+
+    function animacion(t){
+
+        if(!inicioTiempo) inicioTiempo = t;
+
+        let progreso = (t - inicioTiempo) / duracion;
+        if(progreso > 1) progreso = 1;
+
+        let ease = 1 - Math.pow(1 - progreso, 3);
+
+        rotacion = inicio + (destino - inicio) * ease;
+
+        dibujar();
+
+        if(progreso < 1){
+            requestAnimationFrame(animacion);
+        }else{
+            girando = false;
+
+            document.getElementById("ganador").innerHTML =
+                "🏆 Ganador:<br>" + participantes[ganadorIndex];
+        }
+
+    }
+
+    requestAnimationFrame(animacion);
+
 }
 
 
