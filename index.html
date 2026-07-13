@@ -5,13 +5,9 @@
 <title>Ruleta</title>
 
 <style>
-body{
-    margin:0;
-    background-image: url('Wallpaper.png');
-    color:white;
-    font-family:Arial;
-    text-align:center;
-}
+<body style="background-image: url('Wallpaper.jpg'); 
+             background-size: cover;
+             background-position: center;">
 
 h2{
     margin-top:20px;
@@ -54,19 +50,20 @@ button{
 
 const parametros = new URLSearchParams(window.location.search);
 
-const texto = parametros.get("datos");
+const datos = parametros.get("datos");
 
-const participantes = texto
-    ? texto.split("|")
-    : [
+let participantes = [];
+
+if (datos && datos.length > 0) {
+    participantes = decodeURIComponent(datos).split("|");
+} else {
+    participantes = [
         "Juan",
         "Pedro",
         "Ana",
-        "Carlos",
-        "María",
-        "Luis"
-      ];
-
+        "Carlos"
+    ];
+}
 const colores=[
 "#F44336",
 "#2196F3",
