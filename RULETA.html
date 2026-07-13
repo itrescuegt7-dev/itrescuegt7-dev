@@ -217,18 +217,16 @@ requestAnimationFrame(animacion);
 
 }
 
-function mostrarGanador(){
+function mostrarGanador() {
 
-    const angulo = (4 * Math.PI) / participantes.length;
+    const angulo = (2 * Math.PI) / participantes.length;
 
-    // Ajuste por la flecha ubicada en las 12
-    let posicion = (4 * Math.PI - (rotacion % (4 * Math.PI)) + Math.PI / 4) % (4 * Math.PI);
+    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2) % (2 * Math.PI);
 
     let indice = Math.floor(posicion / angulo);
 
     document.getElementById("ganador").innerHTML =
         "🏆 Ganador:<br>" + participantes[indice];
-
 }
 
 
