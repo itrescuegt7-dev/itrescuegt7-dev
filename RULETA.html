@@ -219,10 +219,10 @@ requestAnimationFrame(animacion);
 
 function mostrarGanador(){
 
-    const angulo = (2 * Math.PI) / participantes.length;
+    const angulo = (4 * Math.PI) / participantes.length;
 
     // Ajuste por la flecha ubicada en las 12
-    let posicion = (3 * Math.PI - (rotacion % (3 * Math.PI)) + Math.PI / 3) % (3 * Math.PI);
+    let posicion = (4 * Math.PI - (rotacion % (4 * Math.PI)) + Math.PI / 4) % (4 * Math.PI);
 
     let indice = Math.floor(posicion / angulo);
 
