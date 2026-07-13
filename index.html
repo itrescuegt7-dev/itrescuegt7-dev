@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ruleta</title>
+
+<style>
+body{
+    margin:0;
+    background:#222;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+h2{
+    margin-top:20px;
+}
+
+#wheel{
+    margin-top:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 30px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+#ganador{
+    font-size:28px;
+    color:yellow;
+    margin-top:20px;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Ruleta de Sorteo</h2>
+
+<canvas id="wheel" width="600" height="600"></canvas>
+
+<br>
+
+<button id="btnGirar">🎯 GIRAR</button>
+
+<div id="ganador"></div>
+
+<script>
+
+const parametros = new URLSearchParams(window.location.search);
+
+const texto = parametros.get("datos");
+
+const participantes = texto
+    ? texto.split("|")
+    : [
+        "Juan",
+        "Pedro",
+        "Ana",
+        "Carlos",
+        "María",
+        "Luis"
+      ];
+
+const colores=[
+"#F44336",
+"#2196F3",
+"#4CAF50",
+"#FF9800",
+"#9C27B0",
+"#009688",
+"#E91E63",
+"#3F51B5"
+];
+
+const canvas=document.getElementById("wheel");
+const ctx=canvas.getContext("2d");
+
+const centro=300;
+const radio=250;
+
+let rotacion=0;
+let girando=false;
+
+function dibujar(){
+
+ctx.clearRect(0,0,600,600);
+
+const angulo=(2*Math.PI)/participantes.length;
+
+for(let i=0;i<participantes.length;i++){
+
+ctx.beginPath();
+
+ctx.moveTo(centro,centro);
+
+ctx.arc(
+centro,
+centro,
+radio,
+rotacion+i*angulo,
+rotacion+(i+1)*angulo
+);
+
+ctx.fillStyle=colores[i%colores.length];
+ctx.fill();
+
+ctx.save();
+
+ctx.translate(centro,centro);
+
+ctx.rotate(rotacion+i*angulo+angulo/2);
+
+ctx.fillStyle="white";
+ctx.font="18px Arial";
+ctx.textAlign="right";
+
+ctx.fillText(participantes[i],220,5);
+
+ctx.restore();
+
+}
+
+/* círculo central */
+
+ctx.beginPath();
+ctx.arc(centro,centro,40,0,2*Math.PI);
+ctx.fillStyle="white";
+ctx.fill();
+
+/* flecha */
+
+ctx.fillStyle="red";
+
+ctx.beginPath();
+
+ctx.moveTo(300,20);
+
+ctx.lineTo(285,60);
+
+ctx.lineTo(315,60);
+
+ctx.fill();
+
+}
+
+dibujar();
+
+document.getElementById("btnGirar").onclick=girar;
+
+function girar(){
+
+if(girando) return;
+
+girando=true;
+
+document.getElementById("ganador").innerHTML="";
+
+let vueltas=6+Math.random()*5;
+
+let destino=rotacion+vueltas*2*Math.PI;
+
+let inicio=rotacion;
+
+let duracion=5000;
+
+let inicioTiempo=null;
+
+function animacion(t){
+
+if(!inicioTiempo) inicioTiempo=t;
+
+let progreso=(t-inicioTiempo)/duracion;
+
+if(progreso>1) progreso=1;
+
+let ease=1-Math.pow(1-progreso,3);
+
+rotacion=inicio+(destino-inicio)*ease;
+
+dibujar();
+
+if(progreso<1){
+
+requestAnimationFrame(animacion);
+
+}else{
+
+girando=false;
+
+mostrarGanador();
+
+}
+
+}
+
+requestAnimationFrame(animacion);
+
+}
+
+function mostrarGanador(){
+
+const angulo=(2*Math.PI)/participantes.length;
+
+let posicion=(2*Math.PI-(rotacion%(2*Math.PI)))%(2*Math.PI);
+
+let indice=Math.floor(posicion/angulo);
+
+document.getElementById("ganador").innerHTML=
+"🏆 Ganador: <br>"+participantes[indice];
+
+}
+
+</script>
+
+</body>
+</html>
