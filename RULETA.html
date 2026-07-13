@@ -222,7 +222,7 @@ function mostrarGanador(){
     const angulo = (2 * Math.PI) / participantes.length;
 
     // Ajuste por la flecha ubicada en las 12
-    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2) % (2 * Math.PI);
+    let posicion = (3 * Math.PI - (rotacion % (3 * Math.PI)) + Math.PI / 3) % (3 * Math.PI);
 
     let indice = Math.floor(posicion / angulo);
 
