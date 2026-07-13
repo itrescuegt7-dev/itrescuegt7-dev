@@ -115,11 +115,11 @@ ctx.beginPath();
 ctx.moveTo(centro,centro);
 
 ctx.arc(
-centro,
-centro,
-radio,
-rotacion+i*angulo,
-rotacion+(i+1)*angulo
+    centro,
+    centro,
+    radio,
+    rotacion + i*angulo - Math.PI/2,
+    rotacion + (i+1)*angulo - Math.PI/2
 );
 
 ctx.fillStyle=colores[i%colores.length];
