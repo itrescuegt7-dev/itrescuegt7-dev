@@ -219,16 +219,18 @@ requestAnimationFrame(animacion);
 
 function mostrarGanador(){
 
-const angulo=(2*Math.PI)/participantes.length;
+    const angulo = (2 * Math.PI) / participantes.length;
 
-let posicion=(2*Math.PI-(rotacion%(2*Math.PI)))%(2*Math.PI);
+    // Ajuste por la flecha ubicada en las 12
+    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2) % (2 * Math.PI);
 
-let indice=Math.floor(posicion/angulo);
+    let indice = Math.floor(posicion / angulo);
 
-document.getElementById("ganador").innerHTML=
-"🏆 Ganador: <br>"+participantes[indice];
+    document.getElementById("ganador").innerHTML =
+        "🏆 Ganador:<br>" + participantes[indice];
 
 }
+
 
 </script>
 
