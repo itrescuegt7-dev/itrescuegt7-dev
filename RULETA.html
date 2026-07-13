@@ -221,7 +221,7 @@ function mostrarGanador() {
 
     const angulo = (2 * Math.PI) / participantes.length;
 
-    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2) % (2 * Math.PI);
+    let posicion = (2 * Math.PI - (rotacion % (2 * Math.PI)) + Math.PI / 2 - angulo / 2) % (2 * Math.PI);
 
     let indice = Math.floor(posicion / angulo);
 
