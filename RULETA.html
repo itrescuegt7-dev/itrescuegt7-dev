@@ -248,30 +248,6 @@ lanzarConfeti();
     requestAnimationFrame(animacion);
 
 }
-function lanzarConfeti(){
-
-    var duracion = 3000;
-    var fin = Date.now() + duracion;
-
-    (function frame(){
-
-        confetti({
-            particleCount:4,
-            angle:60,
-            spread:55,
-            origin:{x:0}
-        });
-
-        confetti({
-            particleCount:4,
-            angle:120,
-            spread:55,
-            origin:{x:1}
-        });
-
-        if(Date.now() < fin){
-            requestAnimationFrame(frame);
-        }
 
 
 
