@@ -62,7 +62,14 @@ button{
 
 <button id="btnGirar">🎯 GIRAR</button>
 
-    function lanzarConfeti(){
+    
+
+}
+
+
+<script>
+
+function lanzarConfeti(){
 
     var duracion = 3000;
     var fin = Date.now() + duracion;
@@ -88,12 +95,7 @@ button{
         }
 
     })();
-
-}
-
-
-<script>
-
+    
 const parametros = new URLSearchParams(window.location.search);
 
 const datos = parametros.get("datos");
