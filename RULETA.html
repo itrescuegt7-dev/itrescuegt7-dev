@@ -148,36 +148,10 @@ ctx.restore();
 }
 
 /* círculo central */
-
-/* Centro de la ruleta */
-
 ctx.beginPath();
-ctx.arc(centro, centro, 45, 0, 2 * Math.PI);
-ctx.fillStyle = "white";
+ctx.arc(centro,centro,40,0,2*Math.PI);
+ctx.fillStyle="Red";
 ctx.fill();
-
-ctx.lineWidth = 4;
-ctx.strokeStyle = "#FFD700"; // Borde dorado
-ctx.stroke();
-
-if (logo.complete) {
-
-    ctx.save();
-
-    ctx.beginPath();
-    ctx.arc(centro, centro, 40, 0, 2 * Math.PI);
-    ctx.clip();
-
-    ctx.drawImage(
-        logo,
-        centro - 40,
-        centro - 40,
-        80,
-        80
-    );
-
-    ctx.restore();
-
 
 
 /* flecha */
